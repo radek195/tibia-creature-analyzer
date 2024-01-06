@@ -12,7 +12,7 @@ plugins {
     id 'org.flywaydb.flyway' version '8.4.4'
 }
 
-group = 'com.radek'
+group = 'com.example'
 version = '1.0-SNAPSHOT'
 
 apply from: 'gradle/flyway.gradle'
