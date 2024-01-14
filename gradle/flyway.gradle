@@ -2,6 +2,6 @@ flyway {
     url = 'jdbc:postgresql://localhost:5432/postgres'
     user = 'postgres'
     password = 'password'
-    schemas = ['tibia-creature-analyzer']
-    defaultSchema = 'tibia-creature-analyzer'
+    schemas = ['tibia_creature_analyzer']
+    defaultSchema = 'tibia_creature_analyzer'
 }
