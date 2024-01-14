@@ -4,6 +4,7 @@ import java.sql.*;
 
 public class DbConnection {
     private final Connection connection;
+    public static String SCHEMA = "tibia-creature-analyzer";
 
     public DbConnection() {
         String url = "jdbc:postgresql://localhost:5432/postgres";
