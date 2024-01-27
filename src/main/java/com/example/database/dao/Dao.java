@@ -1,0 +1,15 @@
+package com.example.database.dao;
+
+import java.sql.SQLException;
+import java.util.Optional;
+
+public interface Dao<T> {
+
+    void save(T object) throws SQLException;
+
+    Optional<T> get(long id) throws SQLException;
+
+    void update(T object, long id) throws SQLException;
+
+    void delete(long id) throws SQLException;
+}

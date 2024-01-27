@@ -3,6 +3,8 @@ buildscript {
         postgresqlVersion = '42.7.1'
         groovyVersion = '4.0.16'
         spockVersion = '2.3-groovy-4.0'
+        lombokVersion = '1.18.30'
+        jacksonVersion = '2.16.1'
     }
 }
 
@@ -25,6 +27,9 @@ dependencies {
     implementation "org.postgresql:postgresql:${postgresqlVersion}"
     testImplementation platform('org.junit:junit-bom:5.9.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
+    compileOnly "org.projectlombok:lombok:${lombokVersion}"
+    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+    implementation "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
 }
 
 test {
