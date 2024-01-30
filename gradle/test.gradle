@@ -1,0 +1,14 @@
+buildscript {
+    ext {
+        junitVersion = '5.10.1'
+        groovyVersion = '4.0.17'
+        spockVersion = '2.3-groovy-4.0'
+    }
+}
+
+dependencies {
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
+    testImplementation "org.apache.groovy:groovy:${groovyVersion}"
+    testImplementation "org.spockframework:spock-core:${spockVersion}"
+
+}
