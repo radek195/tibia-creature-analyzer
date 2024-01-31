@@ -17,8 +17,9 @@ public class MonsterStatsDao implements Dao<MonsterStats> {
     private final DbConnection dbConnection;
 
     @Override
-    public void save(MonsterStats object) throws SQLException {
-        String query = String.format("INSERT INTO %s.monster_stats(name, amount_killed, avg_loot, total_loot, avg_balance, avg_supplies) VALUES(?, ?, ?, ?, ?, ?", SCHEMA);
+    public long save(MonsterStats object) throws SQLException {
+        long id = getNextSequenceValue();
+        String query = String.format("INSERT INTO %s.monster_stats(name, amount_killed, avg_loot, total_loot, avg_balance, avg_supplies) VALUES(?, ?, ?, ?, ?, ?)", SCHEMA);
 
         PreparedStatement statement = dbConnection.createPreparedStatement(query);
         statement.setString(1, object.getName());
@@ -29,6 +30,7 @@ public class MonsterStatsDao implements Dao<MonsterStats> {
         statement.setInt(6, object.getAvgSupplies());
 
         dbConnection.executeUpdate(statement);
+        return id;
     }
 
     @Override
@@ -39,12 +41,12 @@ public class MonsterStatsDao implements Dao<MonsterStats> {
 
         ResultSet rs = dbConnection.executeQuery(statement);
 
-        return Optional.ofNullable(MonsterStats.from(rs));
+        return Optional.ofNullable(rs.next() ? MonsterStats.from(rs) : null);
     }
 
     @Override
     public void update(MonsterStats object, long id) throws SQLException {
-        String query = String.format("UPDATE %s.monster_stats SET name = ?, amountKilled = ?, avgLoot = ?, totalLoot = ?, avgBalance = ?, avgSupplies = ? WHERE id = ?", SCHEMA);
+        String query = String.format("UPDATE %s.monster_stats SET name = ?, amount_killed = ?, avg_loot = ?, total_loot = ?, avg_balance = ?, avg_supplies = ? WHERE id = ?", SCHEMA);
         PreparedStatement statement = dbConnection.createPreparedStatement(query);
         statement.setString(1, object.getName());
         statement.setInt(2, object.getAmountKilled());
@@ -63,6 +65,18 @@ public class MonsterStatsDao implements Dao<MonsterStats> {
         PreparedStatement statement = dbConnection.createPreparedStatement(query);
         statement.setLong(1, id);
 
-        dbConnection.executeQuery(statement);
+        dbConnection.executeUpdate(statement);
+    }
+
+    private long getNextSequenceValue() throws SQLException {
+        String query = String.format("SELECT last_value FROM %s.monster_stats_id_seq", SCHEMA);
+        PreparedStatement statement = dbConnection.createPreparedStatement(query);
+
+        ResultSet rs = dbConnection.executeQuery(statement);
+
+        if (rs.next()) {
+            return rs.getLong("last_value");
+        }
+        throw new RuntimeException("Could not find next index value");
     }
 }

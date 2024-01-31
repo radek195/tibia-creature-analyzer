@@ -19,7 +19,8 @@ public class SoloHuntDao implements Dao<SoloHunt> {
     private final MappingHelper mappingHelper;
 
     @Override
-    public void save(SoloHunt object) throws SQLException {
+    public long save(SoloHunt object) throws SQLException {
+        long id = getNextSequenceValue();
         String killedMonsters = mappingHelper.from(object.getKilledMonsters());
         String lootedItems = mappingHelper.from(object.getLootedItems());
         String queryFormat = "INSERT INTO %s.solo_hunts(balance, killed_monsters, loot, looted_items, supplies) VALUES(?, '%s', ?, '%s', ?)";
@@ -31,6 +32,7 @@ public class SoloHuntDao implements Dao<SoloHunt> {
         statement.setInt(3, object.getSupplies());
 
         dbConnection.executeUpdate(statement);
+        return id;
     }
 
     @Override
@@ -41,7 +43,7 @@ public class SoloHuntDao implements Dao<SoloHunt> {
 
         ResultSet rs = dbConnection.executeQuery(statement);
 
-        return Optional.ofNullable(SoloHunt.from(rs, mappingHelper));
+        return Optional.ofNullable(rs.next() ? SoloHunt.from(rs, mappingHelper) : null);
     }
 
     @Override
@@ -66,6 +68,18 @@ public class SoloHuntDao implements Dao<SoloHunt> {
         PreparedStatement statement = dbConnection.createPreparedStatement(query);
         statement.setLong(1, id);
 
-        dbConnection.executeQuery(statement);
+        dbConnection.executeUpdate(statement);
+    }
+
+    private long getNextSequenceValue() throws SQLException {
+        String query = String.format("SELECT last_value FROM %s.solo_hunts_id_seq", SCHEMA);
+        PreparedStatement statement = dbConnection.createPreparedStatement(query);
+
+        ResultSet rs = dbConnection.executeQuery(statement);
+
+        if (rs.next()) {
+            return rs.getLong("last_value");
+        }
+        throw new RuntimeException("Could not find next index value");
     }
 }
