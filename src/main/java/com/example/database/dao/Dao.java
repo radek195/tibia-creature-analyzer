@@ -5,7 +5,7 @@ import java.util.Optional;
 
 public interface Dao<T> {
 
-    void save(T object) throws SQLException;
+    long save(T object) throws SQLException;
 
     Optional<T> get(long id) throws SQLException;
 
