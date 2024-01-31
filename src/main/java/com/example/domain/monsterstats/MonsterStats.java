@@ -18,18 +18,14 @@ public class MonsterStats {
     int avgSupplies;
 
     public static MonsterStats from(ResultSet rs) throws SQLException {
-        if (rs.next()) {
-            return MonsterStats.builder()
-                    .id(rs.getLong("id"))
-                    .name(rs.getString("name"))
-                    .amountKilled(rs.getInt("amount_killed"))
-                    .avgLoot(rs.getInt("avg_loot"))
-                    .totalLoot(rs.getInt("total_loot"))
-                    .avgBalance(rs.getInt("avg_balance"))
-                    .avgSupplies(rs.getInt("avg_supplies"))
-                    .build();
-        }
-        return null;
+        return MonsterStats.builder()
+                .id(rs.getLong("id"))
+                .name(rs.getString("name"))
+                .amountKilled(rs.getInt("amount_killed"))
+                .avgLoot(rs.getInt("avg_loot"))
+                .totalLoot(rs.getInt("total_loot"))
+                .avgBalance(rs.getInt("avg_balance"))
+                .avgSupplies(rs.getInt("avg_supplies"))
+                .build();
     }
-
 }

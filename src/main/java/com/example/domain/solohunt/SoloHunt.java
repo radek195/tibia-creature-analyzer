@@ -20,17 +20,13 @@ public class SoloHunt {
     int supplies;
 
     public static SoloHunt from(ResultSet rs, MappingHelper mappingHelper) throws SQLException {
-        if (rs.next()) {
-            return SoloHunt.builder()
-                    .id(rs.getLong("id"))
-                    .balance(rs.getInt("balance"))
-                    .killedMonsters(mappingHelper.jsonToList(rs.getString("killed_monsters")))
-                    .loot(rs.getInt("loot"))
-                    .lootedItems(mappingHelper.jsonToList(rs.getString("looted_items")))
-                    .supplies(rs.getInt("supplies"))
-                    .build();
-        }
-        return null;
+        return SoloHunt.builder()
+                .id(rs.getLong("id"))
+                .balance(rs.getInt("balance"))
+                .killedMonsters(mappingHelper.jsonToList(rs.getString("killed_monsters")))
+                .loot(rs.getInt("loot"))
+                .lootedItems(mappingHelper.jsonToList(rs.getString("looted_items")))
+                .supplies(rs.getInt("supplies"))
+                .build();
     }
-
 }

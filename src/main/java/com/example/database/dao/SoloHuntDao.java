@@ -43,7 +43,7 @@ public class SoloHuntDao implements Dao<SoloHunt> {
 
         ResultSet rs = dbConnection.executeQuery(statement);
 
-        return Optional.ofNullable(SoloHunt.from(rs, mappingHelper));
+        return Optional.ofNullable(rs.next() ? SoloHunt.from(rs, mappingHelper) : null);
     }
 
     @Override
@@ -68,7 +68,7 @@ public class SoloHuntDao implements Dao<SoloHunt> {
         PreparedStatement statement = dbConnection.createPreparedStatement(query);
         statement.setLong(1, id);
 
-        dbConnection.executeQuery(statement);
+        dbConnection.executeUpdate(statement);
     }
 
     private long getNextSequenceValue() throws SQLException {

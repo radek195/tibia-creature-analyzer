@@ -41,7 +41,7 @@ public class MonsterStatsDao implements Dao<MonsterStats> {
 
         ResultSet rs = dbConnection.executeQuery(statement);
 
-        return Optional.ofNullable(MonsterStats.from(rs));
+        return Optional.ofNullable(rs.next() ? MonsterStats.from(rs) : null);
     }
 
     @Override
@@ -65,7 +65,7 @@ public class MonsterStatsDao implements Dao<MonsterStats> {
         PreparedStatement statement = dbConnection.createPreparedStatement(query);
         statement.setLong(1, id);
 
-        dbConnection.executeQuery(statement);
+        dbConnection.executeUpdate(statement);
     }
 
     private long getNextSequenceValue() throws SQLException {
