@@ -1,6 +1,7 @@
 package common
 
 import com.example.domain.helpers.CountNamePair
+import com.example.domain.monsterstats.MonsterStats
 import com.example.domain.solohunt.SoloHunt
 
 trait TestData {
@@ -37,4 +38,25 @@ trait TestData {
                 .build()
     }
 
+    MonsterStats getMonsterStats() {
+        MonsterStats.builder()
+                .name("Dragon")
+                .amountKilled(15)
+                .avgLoot(223)
+                .totalLoot(29846)
+                .avgBalance(9896)
+                .avgSupplies(941)
+                .build()
+    }
+
+    MonsterStats getUpdatedMonsterStats() {
+        MonsterStats.builder()
+                .name("Dragon")
+                .amountKilled(125)
+                .avgLoot(22)
+                .totalLoot(26)
+                .avgBalance(916)
+                .avgSupplies(94112)
+                .build()
+    }
 }

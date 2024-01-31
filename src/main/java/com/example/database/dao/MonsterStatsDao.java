@@ -19,7 +19,7 @@ public class MonsterStatsDao implements Dao<MonsterStats> {
     @Override
     public long save(MonsterStats object) throws SQLException {
         long id = getNextSequenceValue();
-        String query = String.format("INSERT INTO %s.monster_stats(name, amount_killed, avg_loot, total_loot, avg_balance, avg_supplies) VALUES(?, ?, ?, ?, ?, ?", SCHEMA);
+        String query = String.format("INSERT INTO %s.monster_stats(name, amount_killed, avg_loot, total_loot, avg_balance, avg_supplies) VALUES(?, ?, ?, ?, ?, ?)", SCHEMA);
 
         PreparedStatement statement = dbConnection.createPreparedStatement(query);
         statement.setString(1, object.getName());
@@ -46,7 +46,7 @@ public class MonsterStatsDao implements Dao<MonsterStats> {
 
     @Override
     public void update(MonsterStats object, long id) throws SQLException {
-        String query = String.format("UPDATE %s.monster_stats SET name = ?, amountKilled = ?, avgLoot = ?, totalLoot = ?, avgBalance = ?, avgSupplies = ? WHERE id = ?", SCHEMA);
+        String query = String.format("UPDATE %s.monster_stats SET name = ?, amount_killed = ?, avg_loot = ?, total_loot = ?, avg_balance = ?, avg_supplies = ? WHERE id = ?", SCHEMA);
         PreparedStatement statement = dbConnection.createPreparedStatement(query);
         statement.setString(1, object.getName());
         statement.setInt(2, object.getAmountKilled());
