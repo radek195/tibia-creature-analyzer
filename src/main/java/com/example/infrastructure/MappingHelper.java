@@ -1,4 +1,4 @@
-package com.example.database;
+package com.example.infrastructure;
 
 import com.example.domain.helpers.CountNamePair;
 import com.fasterxml.jackson.core.JsonProcessingException;

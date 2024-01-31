@@ -1,9 +1,9 @@
 package unit
 
-import com.example.database.DbConnection
-import com.example.database.dao.Dao
-import com.example.database.dao.MonsterStatsDao
 import com.example.domain.monsterstats.MonsterStats
+import com.example.infrastructure.dao.Dao
+import com.example.infrastructure.dao.DbConnection
+import com.example.infrastructure.dao.MonsterStatsDao
 import common.TestData
 import spock.lang.Specification
 

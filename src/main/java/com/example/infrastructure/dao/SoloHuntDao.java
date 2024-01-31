@@ -1,16 +1,13 @@
-package com.example.database.dao;
+package com.example.infrastructure.dao;
 
-import com.example.database.DbConnection;
-import com.example.database.MappingHelper;
 import com.example.domain.solohunt.SoloHunt;
+import com.example.infrastructure.MappingHelper;
 import lombok.RequiredArgsConstructor;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
-
-import static com.example.database.DbConnection.SCHEMA;
 
 @RequiredArgsConstructor
 public class SoloHuntDao implements Dao<SoloHunt> {
@@ -25,7 +22,7 @@ public class SoloHuntDao implements Dao<SoloHunt> {
         String lootedItems = mappingHelper.from(object.getLootedItems());
         String queryFormat = "INSERT INTO %s.solo_hunts(balance, killed_monsters, loot, looted_items, supplies) VALUES(?, '%s', ?, '%s', ?)";
 
-        String query = String.format(queryFormat, SCHEMA, killedMonsters, lootedItems);
+        String query = String.format(queryFormat, DbConnection.SCHEMA, killedMonsters, lootedItems);
         PreparedStatement statement = dbConnection.createPreparedStatement(query);
         statement.setInt(1, object.getBalance());
         statement.setInt(2, object.getLoot());
@@ -37,7 +34,7 @@ public class SoloHuntDao implements Dao<SoloHunt> {
 
     @Override
     public Optional<SoloHunt> get(long id) throws SQLException {
-        String query = String.format("SELECT * FROM %s.solo_hunts WHERE id = ?", SCHEMA);
+        String query = String.format("SELECT * FROM %s.solo_hunts WHERE id = ?", DbConnection.SCHEMA);
         PreparedStatement statement = dbConnection.createPreparedStatement(query);
         statement.setLong(1, id);
 
@@ -52,7 +49,7 @@ public class SoloHuntDao implements Dao<SoloHunt> {
         String lootedItems = mappingHelper.from(object.getLootedItems());
         String queryFormat = "UPDATE %s.solo_hunts SET balance = ?, killed_monsters = '%s', loot = ?, looted_items = '%s', supplies = ? WHERE id = ?";
 
-        String query = String.format(queryFormat, SCHEMA, killedMonsters, lootedItems);
+        String query = String.format(queryFormat, DbConnection.SCHEMA, killedMonsters, lootedItems);
         PreparedStatement statement = dbConnection.createPreparedStatement(query);
         statement.setInt(1, object.getBalance());
         statement.setInt(2, object.getLoot());
@@ -64,7 +61,7 @@ public class SoloHuntDao implements Dao<SoloHunt> {
 
     @Override
     public void delete(long id) throws SQLException {
-        String query = String.format("DELETE FROM %s.solo_hunts WHERE id = ?", SCHEMA);
+        String query = String.format("DELETE FROM %s.solo_hunts WHERE id = ?", DbConnection.SCHEMA);
         PreparedStatement statement = dbConnection.createPreparedStatement(query);
         statement.setLong(1, id);
 
@@ -72,7 +69,7 @@ public class SoloHuntDao implements Dao<SoloHunt> {
     }
 
     private long getNextSequenceValue() throws SQLException {
-        String query = String.format("SELECT last_value FROM %s.solo_hunts_id_seq", SCHEMA);
+        String query = String.format("SELECT last_value FROM %s.solo_hunts_id_seq", DbConnection.SCHEMA);
         PreparedStatement statement = dbConnection.createPreparedStatement(query);
 
         ResultSet rs = dbConnection.executeQuery(statement);

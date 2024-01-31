@@ -1,4 +1,4 @@
-package com.example.database.dao;
+package com.example.infrastructure.dao;
 
 import java.sql.SQLException;
 import java.util.Optional;

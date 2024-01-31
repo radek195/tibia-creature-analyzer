@@ -1,10 +1,10 @@
 package unit
 
-import com.example.database.DbConnection
-import com.example.database.MappingHelper
-import com.example.database.dao.Dao
-import com.example.database.dao.SoloHuntDao
 import com.example.domain.solohunt.SoloHunt
+import com.example.infrastructure.MappingHelper
+import com.example.infrastructure.dao.Dao
+import com.example.infrastructure.dao.DbConnection
+import com.example.infrastructure.dao.SoloHuntDao
 import com.fasterxml.jackson.databind.ObjectMapper
 import common.TestData
 import spock.lang.Specification
