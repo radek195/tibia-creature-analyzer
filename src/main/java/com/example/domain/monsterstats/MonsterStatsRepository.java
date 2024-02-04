@@ -1,8 +1,7 @@
-package com.example.infrastructure.repository.monsterstats;
+package com.example.domain.monsterstats;
 
-import com.example.domain.monsterstats.MonsterStats;
+import com.example.domain.Repository;
 import com.example.infrastructure.dao.Dao;
-import com.example.infrastructure.repository.Repository;
 import lombok.RequiredArgsConstructor;
 
 import java.sql.SQLException;

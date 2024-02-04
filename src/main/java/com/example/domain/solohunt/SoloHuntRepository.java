@@ -1,8 +1,7 @@
-package com.example.infrastructure.repository.solohunt;
+package com.example.domain.solohunt;
 
-import com.example.domain.solohunt.SoloHunt;
+import com.example.domain.Repository;
 import com.example.infrastructure.dao.Dao;
-import com.example.infrastructure.repository.Repository;
 import lombok.RequiredArgsConstructor;
 
 import java.sql.SQLException;
