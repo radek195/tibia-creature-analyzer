@@ -1,10 +1,10 @@
-package com.example.database;
+package com.example.infrastructure.dao;
 
 import java.sql.*;
 
 public class DbConnection {
-    private final Connection connection;
     public static String SCHEMA = "tibia_creature_analyzer";
+    private final Connection connection;
 
     public DbConnection() {
         String url = "jdbc:postgresql://localhost:5432/postgres";
@@ -21,7 +21,7 @@ public class DbConnection {
     }
 
     public PreparedStatement createPreparedStatement(String query) throws SQLException {
-        return connection.prepareStatement(query);
+        return connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
     }
 
     public ResultSet executeQuery(PreparedStatement statement) throws SQLException {

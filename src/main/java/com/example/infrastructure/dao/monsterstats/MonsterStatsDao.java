@@ -1,15 +1,18 @@
-package com.example.database.dao;
+package com.example.infrastructure.dao.monsterstats;
 
-import com.example.database.DbConnection;
 import com.example.domain.monsterstats.MonsterStats;
+import com.example.infrastructure.dao.Dao;
+import com.example.infrastructure.dao.DbConnection;
 import lombok.RequiredArgsConstructor;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
-import static com.example.database.DbConnection.SCHEMA;
+import static com.example.infrastructure.dao.DbConnection.SCHEMA;
 
 @RequiredArgsConstructor
 public class MonsterStatsDao implements Dao<MonsterStats> {
@@ -18,7 +21,6 @@ public class MonsterStatsDao implements Dao<MonsterStats> {
 
     @Override
     public long save(MonsterStats object) throws SQLException {
-        long id = getNextSequenceValue();
         String query = String.format("INSERT INTO %s.monster_stats(name, amount_killed, avg_loot, total_loot, avg_balance, avg_supplies) VALUES(?, ?, ?, ?, ?, ?)", SCHEMA);
 
         PreparedStatement statement = dbConnection.createPreparedStatement(query);
@@ -30,7 +32,11 @@ public class MonsterStatsDao implements Dao<MonsterStats> {
         statement.setInt(6, object.getAvgSupplies());
 
         dbConnection.executeUpdate(statement);
-        return id;
+        ResultSet generatedKeys = statement.getGeneratedKeys();
+        if (generatedKeys.next()) {
+            return generatedKeys.getInt(1);
+        }
+        throw new RuntimeException("Could not get id of saved record.");
     }
 
     @Override
@@ -43,6 +49,22 @@ public class MonsterStatsDao implements Dao<MonsterStats> {
 
         return Optional.ofNullable(rs.next() ? MonsterStats.from(rs) : null);
     }
+
+    @Override
+    public List<MonsterStats> getAll() throws SQLException {
+        String query = String.format("SELECT * FROM %s.monster_stats", SCHEMA);
+        PreparedStatement statement = dbConnection.createPreparedStatement(query);
+
+        ResultSet rs = dbConnection.executeQuery(statement);
+        List<MonsterStats> monsterStatsList = new ArrayList<>();
+
+        while (rs.next()) {
+            monsterStatsList.add(MonsterStats.from(rs));
+        }
+
+        return monsterStatsList;
+    }
+
 
     @Override
     public void update(MonsterStats object, long id) throws SQLException {
@@ -66,17 +88,5 @@ public class MonsterStatsDao implements Dao<MonsterStats> {
         statement.setLong(1, id);
 
         dbConnection.executeUpdate(statement);
-    }
-
-    private long getNextSequenceValue() throws SQLException {
-        String query = String.format("SELECT last_value FROM %s.monster_stats_id_seq", SCHEMA);
-        PreparedStatement statement = dbConnection.createPreparedStatement(query);
-
-        ResultSet rs = dbConnection.executeQuery(statement);
-
-        if (rs.next()) {
-            return rs.getLong("last_value");
-        }
-        throw new RuntimeException("Could not find next index value");
     }
 }

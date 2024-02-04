@@ -1,7 +1,7 @@
 package com.example.domain.solohunt;
 
-import com.example.database.MappingHelper;
 import com.example.domain.helpers.CountNamePair;
+import com.example.infrastructure.MappingHelper;
 import lombok.Builder;
 import lombok.Getter;
 

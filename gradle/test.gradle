@@ -10,5 +10,5 @@ dependencies {
     testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
     testImplementation "org.apache.groovy:groovy:${groovyVersion}"
     testImplementation "org.spockframework:spock-core:${spockVersion}"
-
+    testImplementation 'org.apache.groovy:groovy-sql:4.0.18'
 }
