@@ -21,7 +21,6 @@ public class MonsterStatsDao implements Dao<MonsterStats> {
 
     @Override
     public long save(MonsterStats object) throws SQLException {
-        long id = getNextSequenceValue();
         String query = String.format("INSERT INTO %s.monster_stats(name, amount_killed, avg_loot, total_loot, avg_balance, avg_supplies) VALUES(?, ?, ?, ?, ?, ?)", SCHEMA);
 
         PreparedStatement statement = dbConnection.createPreparedStatement(query);
@@ -33,7 +32,11 @@ public class MonsterStatsDao implements Dao<MonsterStats> {
         statement.setInt(6, object.getAvgSupplies());
 
         dbConnection.executeUpdate(statement);
-        return id;
+        ResultSet generatedKeys = statement.getGeneratedKeys();
+        if (generatedKeys.next()) {
+            return generatedKeys.getInt(1);
+        }
+        throw new RuntimeException("Could not get id of saved record.");
     }
 
     @Override
@@ -85,17 +88,5 @@ public class MonsterStatsDao implements Dao<MonsterStats> {
         statement.setLong(1, id);
 
         dbConnection.executeUpdate(statement);
-    }
-
-    private long getNextSequenceValue() throws SQLException {
-        String query = String.format("SELECT last_value FROM %s.monster_stats_id_seq", SCHEMA);
-        PreparedStatement statement = dbConnection.createPreparedStatement(query);
-
-        ResultSet rs = dbConnection.executeQuery(statement);
-
-        if (rs.next()) {
-            return rs.getLong("last_value");
-        }
-        throw new RuntimeException("Could not find next index value");
     }
 }

@@ -21,7 +21,7 @@ public class DbConnection {
     }
 
     public PreparedStatement createPreparedStatement(String query) throws SQLException {
-        return connection.prepareStatement(query);
+        return connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
     }
 
     public ResultSet executeQuery(PreparedStatement statement) throws SQLException {
