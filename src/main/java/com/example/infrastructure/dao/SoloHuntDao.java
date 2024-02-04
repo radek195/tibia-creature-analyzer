@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,7 +47,17 @@ public class SoloHuntDao implements Dao<SoloHunt> {
 
     @Override
     public List<SoloHunt> getAll() throws SQLException {
-        return null;
+        String query = String.format("SELECT * FROM %s.solo_hunts", DbConnection.SCHEMA);
+        PreparedStatement statement = dbConnection.createPreparedStatement(query);
+
+        ResultSet rs = dbConnection.executeQuery(statement);
+
+        List<SoloHunt> soloHuntList = new ArrayList<>();
+        while (rs.next()) {
+            soloHuntList.add(SoloHunt.from(rs, mappingHelper));
+        }
+
+        return soloHuntList;
     }
 
     @Override

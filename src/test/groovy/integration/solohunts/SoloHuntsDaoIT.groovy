@@ -7,9 +7,9 @@ import com.example.infrastructure.dao.DbConnection
 import com.example.infrastructure.dao.SoloHuntDao
 import com.fasterxml.jackson.databind.ObjectMapper
 import common.TestData
-import spock.lang.Specification
+import integration.IntegrationSpec
 
-class SoloHuntsDaoIT extends Specification implements TestData {
+class SoloHuntsDaoIT extends IntegrationSpec implements TestData {
 
     MappingHelper mappingHelper = new MappingHelper(new ObjectMapper())
     private Dao<SoloHunt> underTest = new SoloHuntDao(new DbConnection(), mappingHelper)
@@ -24,6 +24,25 @@ class SoloHuntsDaoIT extends Specification implements TestData {
 
         then:
             assertSoloHunt(expected, actual)
+    }
+
+    def "Should return list of monster stats records"() {
+        given:
+            dbHelper.cleanTables()
+
+        and:
+            def expected = getSoloHunt()
+            underTest.save(expected)
+            underTest.save(expected)
+            underTest.save(expected)
+            underTest.save(expected)
+
+        when:
+            def actual = underTest.getAll()
+
+        then:
+            actual.size() == 4
+            actual.forEach { assertSoloHunt(expected, it) }
     }
 
     def "Should update solo hunt record"() {
