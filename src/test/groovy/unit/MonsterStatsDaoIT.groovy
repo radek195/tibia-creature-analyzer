@@ -3,7 +3,7 @@ package unit
 import com.example.domain.monsterstats.MonsterStats
 import com.example.infrastructure.dao.Dao
 import com.example.infrastructure.dao.DbConnection
-import com.example.infrastructure.dao.MonsterStatsDao
+import com.example.infrastructure.dao.monsterstats.MonsterStatsDao
 import common.TestData
 import spock.lang.Specification
 

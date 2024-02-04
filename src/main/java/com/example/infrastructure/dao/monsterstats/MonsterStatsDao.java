@@ -1,6 +1,8 @@
-package com.example.infrastructure.dao;
+package com.example.infrastructure.dao.monsterstats;
 
 import com.example.domain.monsterstats.MonsterStats;
+import com.example.infrastructure.dao.Dao;
+import com.example.infrastructure.dao.DbConnection;
 import lombok.RequiredArgsConstructor;
 
 import java.sql.PreparedStatement;
