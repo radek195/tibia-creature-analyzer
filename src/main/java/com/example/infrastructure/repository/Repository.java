@@ -1,4 +1,4 @@
-package com.example.domain;
+package com.example.infrastructure.repository;
 
 import java.util.List;
 
