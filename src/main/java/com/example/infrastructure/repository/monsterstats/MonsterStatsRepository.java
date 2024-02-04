@@ -1,7 +1,8 @@
-package com.example.infrastructure.repository;
+package com.example.infrastructure.repository.monsterstats;
 
 import com.example.domain.monsterstats.MonsterStats;
 import com.example.infrastructure.dao.Dao;
+import com.example.infrastructure.repository.Repository;
 import lombok.RequiredArgsConstructor;
 
 import java.sql.SQLException;
@@ -37,7 +38,11 @@ public class MonsterStatsRepository implements Repository<MonsterStats> {
 
     @Override
     public List<MonsterStats> getAll() {
-        return null;
+        try {
+            return monsterStatsDao.getAll();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

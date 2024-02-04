@@ -1,7 +1,5 @@
 package com.example.infrastructure.repository;
 
-import com.example.domain.monsterstats.MonsterStats;
-
 import java.util.List;
 
 public interface Repository<T> {
@@ -12,7 +10,7 @@ public interface Repository<T> {
 
     List<T> getAll();
 
-    void update(MonsterStats object, long id);
+    void update(T object, long id);
 
     void delete(long id);
 }

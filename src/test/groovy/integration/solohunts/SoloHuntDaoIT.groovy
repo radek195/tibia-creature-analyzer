@@ -4,12 +4,12 @@ import com.example.domain.solohunt.SoloHunt
 import com.example.infrastructure.MappingHelper
 import com.example.infrastructure.dao.Dao
 import com.example.infrastructure.dao.DbConnection
-import com.example.infrastructure.dao.SoloHuntDao
+import com.example.infrastructure.dao.solohunt.SoloHuntDao
 import com.fasterxml.jackson.databind.ObjectMapper
 import common.TestData
 import integration.IntegrationSpec
 
-class SoloHuntsDaoIT extends IntegrationSpec implements TestData {
+class SoloHuntDaoIT extends IntegrationSpec implements TestData {
 
     MappingHelper mappingHelper = new MappingHelper(new ObjectMapper())
     private Dao<SoloHunt> underTest = new SoloHuntDao(new DbConnection(), mappingHelper)
@@ -26,7 +26,7 @@ class SoloHuntsDaoIT extends IntegrationSpec implements TestData {
             assertSoloHunt(expected, actual)
     }
 
-    def "Should return list of monster stats records"() {
+    def "Should return list of solo hunt records"() {
         given:
             dbHelper.cleanTables()
 

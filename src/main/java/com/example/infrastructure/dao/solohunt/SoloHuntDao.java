@@ -1,7 +1,9 @@
-package com.example.infrastructure.dao;
+package com.example.infrastructure.dao.solohunt;
 
 import com.example.domain.solohunt.SoloHunt;
 import com.example.infrastructure.MappingHelper;
+import com.example.infrastructure.dao.Dao;
+import com.example.infrastructure.dao.DbConnection;
 import lombok.RequiredArgsConstructor;
 
 import java.sql.PreparedStatement;
