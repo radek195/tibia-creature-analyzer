@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -41,6 +42,11 @@ public class SoloHuntDao implements Dao<SoloHunt> {
         ResultSet rs = dbConnection.executeQuery(statement);
 
         return Optional.ofNullable(rs.next() ? SoloHunt.from(rs, mappingHelper) : null);
+    }
+
+    @Override
+    public List<SoloHunt> getAll() throws SQLException {
+        return null;
     }
 
     @Override

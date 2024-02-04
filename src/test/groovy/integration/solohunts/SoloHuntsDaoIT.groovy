@@ -1,4 +1,4 @@
-package unit
+package integration.solohunts
 
 import com.example.domain.solohunt.SoloHunt
 import com.example.infrastructure.MappingHelper
@@ -9,7 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import common.TestData
 import spock.lang.Specification
 
-class SoloHuntDaoIT extends Specification implements TestData {
+class SoloHuntsDaoIT extends Specification implements TestData {
 
     MappingHelper mappingHelper = new MappingHelper(new ObjectMapper())
     private Dao<SoloHunt> underTest = new SoloHuntDao(new DbConnection(), mappingHelper)
