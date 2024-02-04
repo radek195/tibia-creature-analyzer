@@ -18,5 +18,6 @@ class DbHelper {
     void cleanTables() {
         db.execute("DELETE FROM ${SCHEMA}.monster_stats" as String)
         db.execute("DELETE FROM ${SCHEMA}.solo_hunts" as String)
+        db.execute("DELETE FROM ${SCHEMA}.looted_items" as String)
     }
 }

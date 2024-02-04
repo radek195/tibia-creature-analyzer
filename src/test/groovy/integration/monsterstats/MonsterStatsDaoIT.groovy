@@ -41,7 +41,7 @@ class MonsterStatsDaoIT extends IntegrationSpec implements TestData {
             actual.forEach { assertMonsterStats(expected, it) }
     }
 
-    def "Should update solo hunt record"() {
+    def "Should update looted item record"() {
         given:
             MonsterStats monsterStats = getMonsterStats()
             long id = underTest.save(monsterStats)
@@ -56,7 +56,7 @@ class MonsterStatsDaoIT extends IntegrationSpec implements TestData {
             assertMonsterStats(expected, actual)
     }
 
-    def "Should delete solo hunt record"() {
+    def "Should delete looted item record"() {
         given:
             MonsterStats monsterStats = getMonsterStats()
             long id = underTest.save(monsterStats)

@@ -1,6 +1,7 @@
 package common
 
 import com.example.domain.helpers.CountNamePair
+import com.example.domain.looteditems.LootedItem
 import com.example.domain.monsterstats.MonsterStats
 import com.example.domain.solohunt.SoloHunt
 
@@ -57,6 +58,20 @@ trait TestData {
                 .totalLoot(26)
                 .avgBalance(916)
                 .avgSupplies(94112)
+                .build()
+    }
+
+    LootedItem getLootedItem() {
+        LootedItem.builder()
+                .name("Shield")
+                .amount(14)
+                .build()
+    }
+
+    LootedItem getUpdatedLootedItem() {
+        LootedItem.builder()
+                .name("Mace")
+                .amount(1119)
                 .build()
     }
 }
